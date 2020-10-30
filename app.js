@@ -10,6 +10,7 @@ const cartTotal = document.querySelector('.cart-total');
 const cartContent = document.querySelector('.cart-content');
 const productsDOM = document.querySelector('.products-center');
 
+
 // Cart
 let cart = [];
 
@@ -26,7 +27,7 @@ class Products{
                 const image = item.fields.image.fields.file.url;
                 return {title, price, id, image}
             });
-            return {products};
+            return products;
         } catch (error) {
             console.log(error);
         }
@@ -37,7 +38,6 @@ class Products{
 class UI{
     displayProducts(products){
         let result = '';
-        console.log(typeof products);
         products.forEach(product => {
             result += `<article class="product">
             <div class="img-container">
@@ -54,11 +54,30 @@ class UI{
         });
         productsDOM.innerHTML = result;
     }
+    getBagButtons(){
+        const buttons = [...document.querySelectorAll('.bag-btn')];
+        buttons.forEach(button => {
+            let id = button.dataset.id;
+            let inCart = cart.find(item => item.id === id);
+            if(inCart){
+                button.innerText = 'In Cart';
+                button.disabled = true;
+            }else{
+                button.addEventListener('click', (e)=>{
+                    console.log(e.target);
+                    // 2:00
+                });
+            }
+        });
+        // console.log(Array.from(buttons));
+    }
 }
 
 //local Storage
 class Storage{
-
+    static saveProducts(products){
+        localStorage.setItem('products', JSON.stringify(products));
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -66,5 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const products = new Products();
 
     //get all products
-    products.getProducts().then(products => ui.displayProducts(products));
+    products.getProducts().then(products => {
+        ui.displayProducts(products);
+        Storage.saveProducts(products);
+    }).then(() => {
+        ui.getBagButtons();
+    });
 });
