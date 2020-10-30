@@ -47,7 +47,7 @@ body {
 }
 .cart-items {
   position: absolute;
-  top: -8px;
+  top: -11px;
   right: -8px;
   background: var(--primaryColor);
   padding: 0 5px;
@@ -202,7 +202,6 @@ body {
     min-width: 450px;
   }
 }
-
 .close-cart {
   font-size: 1.7rem;
   cursor: pointer;
