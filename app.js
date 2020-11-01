@@ -43,9 +43,8 @@ class UI{
             <div class="img-container">
                 <img class="product-img" src=${product.image} alt="product">
                 <button class="bag-btn" data-id=${product.id}>
-                    <i class="fas fa-shopping-cart">
-                        add to bag
-                    </i>
+                    <i class="fas fa-shopping-cart"></i>         
+                    add to bag
                 </button>
             </div>
             <h3>${product.title}</h3> 
@@ -64,12 +63,18 @@ class UI{
                 button.disabled = true;
             }else{
                 button.addEventListener('click', (e)=>{
-                    console.log(e.target);
-                    // 2:00
+                   e.target.innerText = 'In Cart';
+                   e.target.disabled = true;
+                   //get product from products
+                   //add product to the cart  
+                   //save cart in local storage
+                   //set cart values
+                   //display cart item
+                   //show the cart
+                               
                 });
             }
         });
-        // console.log(Array.from(buttons));
     }
 }
 
